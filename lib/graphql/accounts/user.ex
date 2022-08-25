@@ -6,16 +6,15 @@ defmodule Graphql.Accounts.User do
 
     email
     first_name
+    last_name
     password
     password_confirmation
+    role
 
   |a
 
   @optional_fields ~w|
-
-    last_name
-    role
-
+    
   |a
 
   @all_fields @required_fields ++ @optional_fields
@@ -25,7 +24,7 @@ defmodule Graphql.Accounts.User do
   schema "users" do
     field(:email, :string)
     field(:first_name, :string)
-    field(:hash_password, :string)
+    field(:password_hash, :string)
     field(:password, :string, virtual: true)
     field(:password_confirmation, :string, virtual: true)
     field(:last_name, :string)
@@ -45,6 +44,10 @@ defmodule Graphql.Accounts.User do
     |> validate_confirmation(:password)
     |> unique_constraint(:email)
     |> hash_password
+  end
+
+  defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+    change(changeset, Bcrypt.add_hash(password))
   end
 
   defp hash_password(changeset) do

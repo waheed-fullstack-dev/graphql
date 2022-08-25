@@ -7,7 +7,7 @@ defmodule Graphql.Repo.Migrations.CreateUsers do
       add :first_name, :string
       add :last_name, :string
       add :email, :string
-      add :hash_password, :string
+      add :password_hash, :string
       add :role, :string
 
       timestamps()
