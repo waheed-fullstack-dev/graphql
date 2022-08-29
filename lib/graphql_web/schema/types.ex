@@ -1,7 +1,7 @@
-defmodule Graphql.Schema.Types do
-use Absinthe.Schema.Notation
+defmodule GraphqlWeb.Schema.Types do
+  use Absinthe.Schema.Notation
 
-alias Graphql.Schema.Types
+  alias GraphqlWeb.Schema.UserType
 
-import_types(Types.UserType)
+  import_types(UserType)
 end

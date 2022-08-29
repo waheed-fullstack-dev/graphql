@@ -9,12 +9,11 @@ defmodule Graphql.Accounts.User do
     last_name
     password
     password_confirmation
-    role
-
+    
   |a
 
   @optional_fields ~w|
-    
+    role
   |a
 
   @all_fields @required_fields ++ @optional_fields
