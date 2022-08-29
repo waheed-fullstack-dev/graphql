@@ -43,7 +43,12 @@ defmodule Graphql.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:bcrypt_elixir, "~> 3.0"}
+      {:bcrypt_elixir, "~> 3.0"},
+      
+      # Graphql
+      {:absinthe, "~> 1.6", override: true},
+      {:absinthe_plug, "~> 1.5"},
+      {:absinthe_ecto, "~> 0.1.3"}
     ]
   end
 
