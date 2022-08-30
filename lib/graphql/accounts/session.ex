@@ -7,7 +7,7 @@ defmodule Graphql.Accounts.Session do
            Accounts.get_by(email: email |> String.downcase()),
          {:ok, user} <-
            Bcrypt.check_pass(user, password),
-         {:ok, jwt_token, _claims} <- Guardian.encode_and_sign(user, %{}, ttl: {10, :minutes}) do
+         {:ok, jwt_token, _claims} <- Guardian.encode_and_sign(user, %{}, ttl: {60, :minutes}) do
       {:ok, jwt_token, user}
     else
       nil -> {:error, "No user found"}
