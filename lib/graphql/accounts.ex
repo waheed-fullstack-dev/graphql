@@ -8,6 +8,10 @@ defmodule Graphql.Accounts do
 
   alias Graphql.Accounts.User
 
+  def get_by(args) do
+    Repo.get_by(User, args)
+  end
+
   @doc """
   Returns the list of users.
 

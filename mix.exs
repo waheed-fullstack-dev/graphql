@@ -48,7 +48,10 @@ defmodule Graphql.MixProject do
       # Graphql
       {:absinthe, "~> 1.6", override: true},
       {:absinthe_plug, "~> 1.5"},
-      {:absinthe_ecto, "~> 0.1.3"}
+      {:absinthe_ecto, "~> 0.1.3"},
+
+      # Jwt Token
+      {:guardian, "~> 2.2"}
     ]
   end
 

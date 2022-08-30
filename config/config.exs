@@ -11,6 +11,10 @@ config :graphql,
   ecto_repos: [Graphql.Repo],
   generators: [binary_id: true]
 
+config :graphql, Graphql.Guardian,
+  issuer: "graphql",
+  secret_key: "Ufyxg1+8N3KObv0JDnfEiJIDLLRL2yfM7Rbbg06/aieozUUHagIF0cNUHlzo0jRw"
+
 # Configures the endpoint
 config :graphql, GraphqlWeb.Endpoint,
   url: [host: "localhost"],

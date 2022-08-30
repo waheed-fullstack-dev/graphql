@@ -2,7 +2,7 @@ defmodule GraphqlWeb.Schema do
   use Absinthe.Schema
 
   import_types(GraphqlWeb.Schema.Types)
-  alias GraphqlWeb.Resolvers.UserResolver
+  alias GraphqlWeb.Resolvers.{UserResolver, SessionResolver}
 
   query do
     @desc "Get a list of all users"
@@ -16,6 +16,12 @@ defmodule GraphqlWeb.Schema do
     field :register_user, type: :user do
       arg(:user, non_null(:user_input))
       resolve(&UserResolver.register_user/3)
+    end
+
+    @desc "Login user and return JWT token"
+    field :login, type: :login do
+      arg(:login, non_null(:login_input))
+      resolve(&SessionResolver.login_user/3)
     end
   end
 end
