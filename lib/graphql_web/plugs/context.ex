@@ -1,5 +1,5 @@
 defmodule GraphqlWeb.Plugs.Context do
-  @behavior Plug
+  @behaviour Plug
   import Plug.Conn
 
   alias Graphql.Guardian

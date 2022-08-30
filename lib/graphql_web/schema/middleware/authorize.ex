@@ -1,5 +1,5 @@
 defmodule GraphqlWeb.Schema.Middleware.Authorize do
-    @behavior Absinthe.Middleware
+    @behaviour Absinthe.Middleware
 
     def call(resolution, role) do
         with %{current_user: user} <- resolution.context,
@@ -11,6 +11,6 @@ defmodule GraphqlWeb.Schema.Middleware.Authorize do
     end
 
     defp correct_role?(%{}, :any), do: true
-    defp correct_role?(%{role: _role}, role), do: true
+    defp correct_role?(%{role: role}, role), do: true
     defp correct_role?(_, _), do: false
 end
