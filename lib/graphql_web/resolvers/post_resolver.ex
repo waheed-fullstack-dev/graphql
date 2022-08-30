@@ -5,6 +5,7 @@ defmodule GraphqlWeb.Resolvers.PostResolver do
 
   def create_post(_, args, %{context: %{current_user: %User{id: user_id}}}) do
     args = Map.put(args.post, :user_id, user_id)
+
     case Blog.create_post(args) |> IO.inspect() do
       {:ok, post} ->
         {:ok, post}
