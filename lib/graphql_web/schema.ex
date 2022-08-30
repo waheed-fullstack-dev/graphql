@@ -17,7 +17,6 @@ defmodule GraphqlWeb.Schema do
     @desc "Register new user"
     field :register_user, type: :user do
       arg(:user, non_null(:user_input))
-
       resolve(&UserResolver.register_user/3)
     end
 
