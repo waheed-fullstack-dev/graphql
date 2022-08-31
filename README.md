@@ -1,4 +1,8 @@
-# Build Graphql Api with Absinthe in Elixir Phoenix and PostgreSQL
+# Build Graphql Api with Absinthe in Elixir Phoenix and PostgreSQL 
+
+# Version
+- Erlang 24.1.5
+- Elixir 1.13
 
 # Goals
 
@@ -17,3 +21,4 @@ To start your Phoenix server:
 - Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000/api/graphql) from your browser.
+
