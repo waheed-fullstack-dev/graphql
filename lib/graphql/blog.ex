@@ -18,7 +18,13 @@ defmodule Graphql.Blog do
 
   """
   def list_posts do
-    Repo.all(Post)
+    query =
+      from(p in Post,
+        join: u in assoc(p, :user),
+        preload: [user: u]
+      )
+
+    Repo.all(query)
   end
 
   @doc """
@@ -114,7 +120,26 @@ defmodule Graphql.Blog do
 
   """
   def list_comments do
-    Repo.all(Comment)
+    query =
+      from(c in Comment,
+        join: u in assoc(c, :user),
+        join: p in assoc(c, :post),
+        preload: [user: u, post: p]
+      )
+
+    Repo.all(query)
+  end
+
+  def list_post_comments(post_id) do
+    query =
+      from(c in Comment,
+        join: u in assoc(c, :user),
+        join: p in assoc(c, :post),
+        where: p.id == ^post_id,
+        preload: [user: u, post: p]
+      )
+
+    Repo.all(query)
   end
 
   @doc """

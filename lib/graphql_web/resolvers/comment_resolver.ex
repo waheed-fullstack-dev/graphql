@@ -6,7 +6,7 @@ defmodule GraphqlWeb.Resolvers.CommentResolver do
   def create_comment(_, args, %{context: %{current_user: %User{id: user_id}}}) do
     args = Map.put(args.comment, :user_id, user_id)
 
-    case Blog.create_comment(args) |> IO.inspect() do
+    case Blogs.create_comment(args) |> IO.inspect() do
       {:ok, comment} ->
         {:ok, comment}
 
@@ -19,7 +19,7 @@ defmodule GraphqlWeb.Resolvers.CommentResolver do
     {:error, "unauthorized"}
   end
 
-  def comments(_, _, _) do
-    {:ok, Blogs.list_comments()}
+  def comments(_, args, _) do
+    {:ok, Blogs.list_post_comments(args.post_id)}
   end
 end

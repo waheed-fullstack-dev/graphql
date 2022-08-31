@@ -11,6 +11,19 @@ defmodule GraphqlWeb.Schema do
       middleware(Authorize, :any)
       resolve(&UserResolver.users/3)
     end
+
+    @desc "Get all posts"
+    field :posts, type: list_of(:post) do
+      middleware(Authorize, :any)
+      resolve(&PostResolver.posts/3)
+    end
+
+    @desc "Get all comments for a post"
+    field :comments, type: list_of(:comment) do
+      arg(:post_id, non_null(:string))
+      middleware(Authorize, :any)
+      resolve(&CommentResolver.comments/3)
+    end
   end
 
   mutation do
@@ -33,18 +46,11 @@ defmodule GraphqlWeb.Schema do
       resolve(&PostResolver.create_post/3)
     end
 
-    @desc "Create a new post"
+    @desc "Create a new comment"
     field :create_comment, type: :comment do
       arg(:comment, non_null(:comment_input))
       middleware(Authorize, :any)
-      resolve(&CommentResolver.create_post/3)
-    end
-
-    @desc "Get all posts"
-    field :posts, type: :post do
-      arg(:post, non_null(:post_input))
-      middleware(Authorize, :any)
-      resolve(&PostResolver.create_post/3)
+      resolve(&CommentResolver.create_comment/3)
     end
   end
 end

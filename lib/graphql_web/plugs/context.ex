@@ -16,7 +16,6 @@ defmodule GraphqlWeb.Plugs.Context do
         _ -> %{}
       end
 
-    IO.inspect(res, label: "Absinthe.Plug.Context")
     Absinthe.Plug.put_options(conn, context: res)
   end
 end
