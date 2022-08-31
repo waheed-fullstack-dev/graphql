@@ -1,5 +1,7 @@
 # Build Graphql Api with Absinthe in Elixir Phoenix and PostgreSQL
 
+# Goals
+
 - Register & Sign-In with JWT Token
 - Crud for Posts
 - Crud for Comments to Post
