@@ -17,14 +17,12 @@ defmodule GraphqlWeb.Resolvers.CommentResolver do
     end
   end
 
-  # Return error when no current user found 
-  def create_comment(_, _args, %{context: %{current_user: %{}}}) do
-    {:error, "unauthorized"}
-  end
-
   # Return comments 
-  def comments(_, _, %{context: %{current_user: %User{id: _user_id}}}) do
-    {:ok, Blogs.list_comments()}
+  def comments(_, args, %{context: %{current_user: %User{id: _user_id}}}) do
+    limit = if Map.has_key?(args, :limit), do: args.limit, else: 20
+    page = if Map.has_key?(args, :page), do: args.page, else: 0
+
+    {:ok, Blogs.get_pagination_list_comments(limit, page)}
   end
 
   # Return comment 

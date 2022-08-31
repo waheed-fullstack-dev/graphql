@@ -20,7 +20,7 @@ defmodule Graphql.MixProject do
   def application do
     [
       mod: {Graphql.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :scrivener]
     ]
   end
 
@@ -51,7 +51,11 @@ defmodule Graphql.MixProject do
       {:absinthe_ecto, "~> 0.1.3"},
 
       # Jwt Token
-      {:guardian, "~> 2.2"}
+      {:guardian, "~> 2.2"},
+
+      # Ecto Query Pagination
+      {:scrivener, "~> 2.7"},
+      {:scrivener_ecto, "~> 2.7"}
     ]
   end
 

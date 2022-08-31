@@ -11,13 +11,24 @@ defmodule GraphqlWeb.Schema do
 
   query do
     @desc "Get a list of all users"
-    field :users, list_of(:user) do
+    field :users, :users do
+      arg :limit, :integer, default_value: 10
+      arg :page, :integer, default_value: 1
       middleware(Authorize, :any)
       resolve(&UserResolver.users/3)
     end
 
+    @desc "Get a user by user_id"
+    field :user, :user do
+      arg :user_id, non_null(:id)
+      middleware(Authorize, :any)
+      resolve(&UserResolver.user/3)
+    end
+
     @desc "Get all posts"
-    field :posts, type: list_of(:post) do
+    field :posts, type: :posts do
+      arg :limit, :integer, default_value: 10
+      arg :page, :integer, default_value: 1
       middleware(Authorize, :any)
       resolve(&PostResolver.posts/3)
     end
@@ -30,7 +41,9 @@ defmodule GraphqlWeb.Schema do
     end
 
     @desc "Get all comments"
-    field :comments, type: list_of(:comment) do
+    field :comments, type: :comments do
+      arg :limit, :integer, default_value: 10
+      arg :page, :integer, default_value: 1
       middleware(Authorize, :any)
       resolve(&CommentResolver.comments/3)
     end
@@ -63,6 +76,13 @@ defmodule GraphqlWeb.Schema do
       resolve(&SessionResolver.login_user/3)
     end
 
+    @desc "Update user"
+    field :update_user, type: :user do
+      arg(:user_id, non_null(:id))
+      arg(:user, non_null(:update_user_input))
+      resolve(&UserResolver.update_user/3)
+    end
+
     @desc "Create a new post"
     field :create_post, type: :post do
       arg(:post, non_null(:post_input))
@@ -80,7 +100,7 @@ defmodule GraphqlWeb.Schema do
     @desc "Update post"
     field :update_post, type: :post do
       arg(:post_id, non_null(:id))
-      arg(:post, non_null(:post_input))
+      arg(:post, non_null(:update_post_input))
       middleware(Authorize, :any)
       resolve(&PostResolver.update_post/3)
     end

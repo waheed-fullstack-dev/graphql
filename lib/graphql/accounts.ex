@@ -25,6 +25,11 @@ defmodule Graphql.Accounts do
     Repo.all(User)
   end
 
+  def get_paginate_list_users(limit, page) do
+    User
+    |> Repo.paginate(%{page: page, page_size: limit})
+  end
+
   @doc """
   Gets a single user.
 
@@ -73,7 +78,7 @@ defmodule Graphql.Accounts do
   """
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.update_changeset(attrs)
     |> Repo.update()
   end
 

@@ -45,6 +45,15 @@ defmodule Graphql.Accounts.User do
     |> hash_password
   end
 
+  @doc false
+  def update_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:email, :first_name, :last_name])
+    |> validate_format(:email, ~r/@/)
+    |> update_change(:email, &String.downcase(&1))
+    |> unique_constraint(:email)
+  end
+
   defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, Bcrypt.add_hash(password))
   end

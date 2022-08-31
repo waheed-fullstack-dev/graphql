@@ -9,6 +9,14 @@ defmodule GraphqlWeb.Schema.CommentType do
     field(:post, :post, resolve: assoc(:post))
   end
 
+  object :comments do
+    field :entries, list_of(:comment)
+    field :page_number, :integer
+    field :page_size, :integer
+    field :total_entries, :integer
+    field :total_pages, :integer
+  end
+
   input_object :comment_input do
     field :content, non_null(:string)
     field :post_id, non_null(:id)

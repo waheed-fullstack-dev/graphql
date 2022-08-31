@@ -5,7 +5,6 @@ defmodule Graphql.Blog do
 
   import Ecto.Query, warn: false
   alias Graphql.Repo
-
   alias Graphql.Blog.Post
 
   @doc """
@@ -25,6 +24,21 @@ defmodule Graphql.Blog do
     #   )
 
     Repo.all(Post)
+  end
+
+  @doc """
+  Returns the list of posts with user assoc and pagination applied.
+
+  ## Examples
+      iex> list_posts()
+      [%Post{}, ...]
+  """
+
+  def get_pagination_list_posts(limit, page) do
+    # Repo.all(from(p in Post, limit: ^limit, offset: ^offset)) 
+
+    Post
+    |> Repo.paginate(%{page: page, page_size: limit})
   end
 
   @doc """
@@ -128,6 +142,11 @@ defmodule Graphql.Blog do
     #   )
 
     Repo.all(Comment)
+  end
+
+  def get_pagination_list_comments(limit, page) do
+    Comment
+    |> Repo.paginate(%{page: page, page_size: limit})
   end
 
   def list_post_comments(post_id) do

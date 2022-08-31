@@ -16,12 +16,11 @@ defmodule GraphqlWeb.Resolvers.PostResolver do
     end
   end
 
-  def create_post(_, _args, %{context: %{current_user: %{}}}) do
-    {:error, "unauthorized"}
-  end
+  def posts(_, args, %{context: %{current_user: %User{id: _user_id}}}) do
+    limit = if Map.has_key?(args, :limit), do: args.limit, else: 20
+    page = if Map.has_key?(args, :page), do: args.page, else: 1
 
-  def posts(_, _, %{context: %{current_user: %User{id: _user_id}}}) do
-    {:ok, Blogs.list_posts()}
+    {:ok, Blogs.get_pagination_list_posts(limit, page)}
   end
 
   def post(_, args, %{context: %{current_user: %User{id: _user_id}}}) do
