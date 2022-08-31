@@ -10,6 +10,6 @@ defmodule GraphqlWeb.Router do
   scope "/api" do
     pipe_through :api
 
-    forward("/graphiql", Absinthe.Plug.GraphiQL, schema: GraphqlWeb.Schema)
+    forward("/graphql", Absinthe.Plug.GraphiQL, schema: GraphqlWeb.Schema)
   end
 end
