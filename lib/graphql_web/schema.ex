@@ -2,7 +2,7 @@ defmodule GraphqlWeb.Schema do
   use Absinthe.Schema
 
   import_types(GraphqlWeb.Schema.Types)
-  alias GraphqlWeb.Resolvers.{UserResolver, SessionResolver, PostResolver}
+  alias GraphqlWeb.Resolvers.{UserResolver, SessionResolver, PostResolver, CommentResolver}
   alias GraphqlWeb.Schema.Middleware.Authorize
 
   query do
@@ -28,6 +28,20 @@ defmodule GraphqlWeb.Schema do
 
     @desc "Create a new post"
     field :create_post, type: :post do
+      arg(:post, non_null(:post_input))
+      middleware(Authorize, :any)
+      resolve(&PostResolver.create_post/3)
+    end
+
+    @desc "Create a new post"
+    field :create_comment, type: :comment do
+      arg(:comment, non_null(:comment_input))
+      middleware(Authorize, :any)
+      resolve(&CommentResolver.create_post/3)
+    end
+
+    @desc "Get all posts"
+    field :posts, type: :post do
       arg(:post, non_null(:post_input))
       middleware(Authorize, :any)
       resolve(&PostResolver.create_post/3)

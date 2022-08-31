@@ -1,5 +1,5 @@
 defmodule GraphqlWeb.Resolvers.PostResolver do
-  alias Graphql.Blog
+  alias Graphql.Blog, as: Blogs
   alias GraphqlWeb.Resolvers.Utils
   alias Graphql.Accounts.User
 
@@ -17,5 +17,9 @@ defmodule GraphqlWeb.Resolvers.PostResolver do
 
   def create_post(_, _args, %{context: %{current_user: %{}}}) do
     {:error, "unauthorized"}
+  end
+
+  def posts(_, _, _) do
+    {:ok, Blogs.list_posts()}
   end
 end
