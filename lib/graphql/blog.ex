@@ -9,7 +9,7 @@ defmodule Graphql.Blog do
   alias Graphql.Blog.Post
 
   @doc """
-  Returns the list of posts.
+  Returns the list of posts with user assoc.
 
   ## Examples
 
@@ -18,30 +18,30 @@ defmodule Graphql.Blog do
 
   """
   def list_posts do
-    query =
-      from(p in Post,
-        join: u in assoc(p, :user),
-        preload: [user: u]
-      )
+    # query =
+    #   from(p in Post,
+    #     join: u in assoc(p, :user),
+    #     preload: [user: u]
+    #   )
 
-    Repo.all(query)
+    Repo.all(Post)
   end
 
   @doc """
   Gets a single post.
 
-  Raises `Ecto.NoResultsError` if the Post does not exist.
+  Return `nil` if the Post does not exist.
 
   ## Examples
 
-      iex> get_post!(123)
+      iex> get_post(123)
       %Post{}
 
-      iex> get_post!(456)
-      ** (Ecto.NoResultsError)
+      iex> get_post(456)
+      nil
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post(id), do: Repo.get(Post, id)
 
   @doc """
   Creates a post.
@@ -111,7 +111,7 @@ defmodule Graphql.Blog do
   alias Graphql.Blog.Comment
 
   @doc """
-  Returns the list of comments.
+  Returns the list of comments with assoc to user and post data.
 
   ## Examples
 
@@ -120,23 +120,20 @@ defmodule Graphql.Blog do
 
   """
   def list_comments do
-    query =
-      from(c in Comment,
-        join: u in assoc(c, :user),
-        join: p in assoc(c, :post),
-        preload: [user: u, post: p]
-      )
+    # query =
+    #   from(c in Comment,
+    #     join: u in assoc(c, :user),
+    #     join: p in assoc(c, :post),
+    #     preload: [user: u, post: p]
+    #   )
 
-    Repo.all(query)
+    Repo.all(Comment)
   end
 
   def list_post_comments(post_id) do
     query =
       from(c in Comment,
-        join: u in assoc(c, :user),
-        join: p in assoc(c, :post),
-        where: p.id == ^post_id,
-        preload: [user: u, post: p]
+        where: c.post_id == ^post_id
       )
 
     Repo.all(query)
@@ -145,18 +142,18 @@ defmodule Graphql.Blog do
   @doc """
   Gets a single comment.
 
-  Raises `Ecto.NoResultsError` if the Comment does not exist.
+  Return `nil` if the Comment does not exist.
 
   ## Examples
 
       iex> get_comment!(123)
       %Comment{}
 
-      iex> get_comment!(456)
-      ** (Ecto.NoResultsError)
+      iex> get_comment(456)
+      nil
 
   """
-  def get_comment!(id), do: Repo.get!(Comment, id)
+  def get_comment(id), do: Repo.get(Comment, id)
 
   @doc """
   Creates a comment.

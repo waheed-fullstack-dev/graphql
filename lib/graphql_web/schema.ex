@@ -1,8 +1,12 @@
 defmodule GraphqlWeb.Schema do
   use Absinthe.Schema
 
+  # Import all schema types that are being used in query and mutation
   import_types(GraphqlWeb.Schema.Types)
+
+  # Resolvers for each module
   alias GraphqlWeb.Resolvers.{UserResolver, SessionResolver, PostResolver, CommentResolver}
+  # Authorization for routing
   alias GraphqlWeb.Schema.Middleware.Authorize
 
   query do
@@ -18,11 +22,31 @@ defmodule GraphqlWeb.Schema do
       resolve(&PostResolver.posts/3)
     end
 
-    @desc "Get all comments for a post"
+    @desc "Get post by id"
+    field :post, type: :post do
+      arg(:post_id, non_null(:id))
+      middleware(Authorize, :any)
+      resolve(&PostResolver.post/3)
+    end
+
+    @desc "Get all comments"
     field :comments, type: list_of(:comment) do
-      arg(:post_id, non_null(:string))
       middleware(Authorize, :any)
       resolve(&CommentResolver.comments/3)
+    end
+
+    @desc "Get comment by id"
+    field :comment, type: :comment do
+      arg(:comment_id, non_null(:id))
+      middleware(Authorize, :any)
+      resolve(&CommentResolver.comment/3)
+    end
+
+    @desc "Get all comments for a post"
+    field :post_comments, type: list_of(:comment) do
+      arg(:post_id, non_null(:id))
+      middleware(Authorize, :any)
+      resolve(&CommentResolver.get_post_comments/3)
     end
   end
 
@@ -46,11 +70,41 @@ defmodule GraphqlWeb.Schema do
       resolve(&PostResolver.create_post/3)
     end
 
+    @desc "Delete post"
+    field :delete_post, type: :post do
+      arg(:post_id, non_null(:id))
+      middleware(Authorize, :any)
+      resolve(&PostResolver.delete_post/3)
+    end
+
+    @desc "Update post"
+    field :update_post, type: :post do
+      arg(:post_id, non_null(:id))
+      arg(:post, non_null(:post_input))
+      middleware(Authorize, :any)
+      resolve(&PostResolver.update_post/3)
+    end
+
     @desc "Create a new comment"
     field :create_comment, type: :comment do
       arg(:comment, non_null(:comment_input))
       middleware(Authorize, :any)
       resolve(&CommentResolver.create_comment/3)
+    end
+
+    @desc "Delete comment"
+    field :delete_comment, type: :comment do
+      arg(:comment_id, non_null(:id))
+      middleware(Authorize, :any)
+      resolve(&CommentResolver.delete_comment/3)
+    end
+
+    @desc "Update comment"
+    field :update_comment, type: :comment do
+      arg(:comment_id, non_null(:id))
+      arg(:comment, non_null(:comment_input))
+      middleware(Authorize, :any)
+      resolve(&CommentResolver.update_comment/3)
     end
   end
 end

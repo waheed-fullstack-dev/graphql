@@ -1,6 +1,7 @@
 defmodule GraphqlWeb.Router do
   use GraphqlWeb, :router
 
+  # added plug to check authorization header and add current login user
   pipeline :api do
     plug :accepts, ["json"]
     plug(GraphqlWeb.Plugs.Context)
