@@ -12,23 +12,23 @@ defmodule GraphqlWeb.Schema do
   query do
     @desc "Get a list of all users"
     field :users, :users do
-      arg :limit, :integer, default_value: 10
-      arg :page, :integer, default_value: 1
+      arg(:limit, :integer, default_value: 10)
+      arg(:page, :integer, default_value: 1)
       middleware(Authorize, :any)
       resolve(&UserResolver.users/3)
     end
 
     @desc "Get a user by user_id"
     field :user, :user do
-      arg :user_id, non_null(:id)
+      arg(:user_id, non_null(:id))
       middleware(Authorize, :any)
       resolve(&UserResolver.user/3)
     end
 
     @desc "Get all posts"
     field :posts, type: :posts do
-      arg :limit, :integer, default_value: 10
-      arg :page, :integer, default_value: 1
+      arg(:limit, :integer, default_value: 10)
+      arg(:page, :integer, default_value: 1)
       middleware(Authorize, :any)
       resolve(&PostResolver.posts/3)
     end
@@ -42,8 +42,8 @@ defmodule GraphqlWeb.Schema do
 
     @desc "Get all comments"
     field :comments, type: :comments do
-      arg :limit, :integer, default_value: 10
-      arg :page, :integer, default_value: 1
+      arg(:limit, :integer, default_value: 10)
+      arg(:page, :integer, default_value: 1)
       middleware(Authorize, :any)
       resolve(&CommentResolver.comments/3)
     end

@@ -18,7 +18,6 @@ defmodule Graphql.AccountsFixtures do
         role: "some role"
       })
       |> Graphql.Accounts.create_user()
-
     user
   end
 end

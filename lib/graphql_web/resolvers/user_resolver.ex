@@ -31,6 +31,7 @@ defmodule GraphqlWeb.Resolvers.UserResolver do
 
   def update_user(_, args, %{context: %{current_user: %User{id: _user_id}}}) do
     users = args.user
+
     with %User{id: _id} = user <- Accounts.get_user(args.user_id),
          {:ok, %User{id: _id} = user} <- Accounts.update_user(user, users) do
       {:ok, user}
