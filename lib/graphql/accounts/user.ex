@@ -36,10 +36,10 @@ defmodule Graphql.Accounts.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, @all_fields)
-    |> validate_required(@required_fields)
-    |> validate_format(:email, ~r/@/)
+    |> validate_required(@required_fields, trim: true)
+    |> validate_format(:email, ~r/@/, message: "must have the @ sign and no spaces")
     |> update_change(:email, &String.downcase(&1))
-    |> validate_length(:password, min: 6, max: 20)
+    |> validate_length(:password, min: 6, max: 20, message: "must be between 6 to 20 alphabets")
     |> validate_confirmation(:password)
     |> unique_constraint(:email)
     |> hash_password
