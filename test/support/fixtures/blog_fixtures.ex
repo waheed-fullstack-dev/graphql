@@ -1,7 +1,5 @@
 defmodule Graphql.BlogFixtures do
-  alias Graphql.Accounts
-  alias Graphql.Accounts.User
-  alias Graphql.Blog.Post
+  alias Graphql.Blog.{Post, Comment}
   alias Graphql.Blog
   import Graphql.AccountsFixtures
 
@@ -14,29 +12,37 @@ defmodule Graphql.BlogFixtures do
   Generate a post.
   """
   def post_fixture(attrs \\ %{}) do
-    {:ok, %User{} = user} = user_fixture() |> Accounts.create_user()
+    user = user_fixture()
 
-    attrs
-    |> Enum.into(%{
-      content: Faker.Lorem.sentence(20, "..."),
-      published: true,
-      title: Faker.Person.title(),
-      user_id: user.id
-    })
+    {:ok, %Post{} = post} =
+      attrs
+      |> Enum.into(%{
+        content: Faker.Lorem.sentence(20, "..."),
+        published: true,
+        title: Faker.Person.title(),
+        user_id: user.id
+      })
+      |> Blog.create_post()
+
+    post
   end
 
   @doc """
   Generate a comment.
   """
   def comment_fixture(attrs \\ %{}) do
-    {:ok, user} = user_fixture() |> Accounts.create_user()
-    {:ok, %Post{} = post} = post_fixture() |> Blog.create_post()
+    user = user_fixture()
+    post = post_fixture()
 
-    attrs
-    |> Enum.into(%{
-      content: Faker.Lorem.sentence(20, "..."),
-      user_id: user.id,
-      post_id: post.id
-    })
+    {:ok, %Comment{} = comment} =
+      attrs
+      |> Enum.into(%{
+        content: Faker.Lorem.sentence(20, "..."),
+        user_id: user.id,
+        post_id: post.id
+      })
+      |> Blog.create_comment()
+
+    comment
   end
 end

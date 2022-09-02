@@ -2,7 +2,6 @@ defmodule Graphql.BlogTest do
   use Graphql.DataCase
 
   alias Graphql.Blog
-  alias Graphql.Accounts
   import Graphql.AccountsFixtures
   import Graphql.BlogFixtures
 
@@ -12,18 +11,18 @@ defmodule Graphql.BlogTest do
     @invalid_attrs %{content: nil, published: nil, title: nil, user_id: nil}
 
     test "list_posts/0 returns all posts" do
-      {:ok, post} = Blog.create_post(post_fixture())
+      post = post_fixture()
 
       assert Blog.list_posts() == [post]
     end
 
     test "get_post!/1 returns the post with given id" do
-      {:ok, post} = Blog.create_post(post_fixture())
+      post = post_fixture()
       assert Blog.get_post(post.id) == post
     end
 
     test "create_post/1 with valid data creates a post" do
-      {:ok, user} = user_fixture() |> Accounts.create_user()
+      user = user_fixture()
 
       valid_attrs = %{
         content: Faker.Lorem.sentence(20, "..."),
@@ -43,7 +42,7 @@ defmodule Graphql.BlogTest do
     end
 
     test "update_post/2 with valid data updates the post" do
-      {:ok, %Post{} = post} = Blog.create_post(post_fixture())
+      post = post_fixture()
 
       update_attrs = %{
         content: Faker.Lorem.sentence(10, "..."),
@@ -58,19 +57,19 @@ defmodule Graphql.BlogTest do
     end
 
     test "update_post/2 with invalid data returns error changeset" do
-      {:ok, %Post{} = post} = Blog.create_post(post_fixture())
+      post = post_fixture()
       assert {:error, %Ecto.Changeset{}} = Blog.update_post(post, @invalid_attrs)
       assert post == Blog.get_post!(post.id)
     end
 
     test "delete_post/1 deletes the post" do
-      {:ok, %Post{} = post} = Blog.create_post(post_fixture())
+      post = post_fixture()
       assert {:ok, %Post{}} = Blog.delete_post(post)
       assert_raise Ecto.NoResultsError, fn -> Blog.get_post!(post.id) end
     end
 
     test "change_post/1 returns a post changeset" do
-      {:ok, %Post{} = post} = Blog.create_post(post_fixture())
+      post = post_fixture()
       assert %Ecto.Changeset{} = Blog.change_post(post)
     end
   end
@@ -81,18 +80,18 @@ defmodule Graphql.BlogTest do
     @invalid_attrs %{content: nil, user_id: nil, post_id: nil}
 
     test "list_comments/0 returns all comments" do
-      {:ok, comment} = comment_fixture() |> Blog.create_comment()
+      comment = comment_fixture()
       assert Blog.list_comments() == [comment]
     end
 
     test "get_comment!/1 returns the comment with given id" do
-      {:ok, comment} = comment_fixture() |> Blog.create_comment()
+      comment = comment_fixture()
       assert Blog.get_comment!(comment.id) == comment
     end
 
     test "create_comment/1 with valid data creates a comment" do
-      {:ok, user} = user_fixture() |> Accounts.create_user()
-      {:ok, post} = Blog.create_post(post_fixture())
+      user = user_fixture()
+      post = post_fixture()
 
       valid_attrs = %{
         content: Faker.Lorem.sentence(20, "..."),
@@ -102,6 +101,8 @@ defmodule Graphql.BlogTest do
 
       assert {:ok, %Comment{} = comment} = Blog.create_comment(valid_attrs)
       assert comment.content == valid_attrs.content
+      assert comment.post_id == valid_attrs.post_id
+      assert comment.user_id == valid_attrs.user_id
     end
 
     test "create_comment/1 with invalid data returns error changeset" do
@@ -109,7 +110,7 @@ defmodule Graphql.BlogTest do
     end
 
     test "update_comment/2 with valid data updates the comment" do
-      {:ok, comment} = comment_fixture() |> Blog.create_comment()
+      comment = comment_fixture()
       update_attrs = %{content: Faker.Lorem.sentence(20, "...")}
 
       assert {:ok, %Comment{} = comment} = Blog.update_comment(comment, update_attrs)
@@ -117,19 +118,19 @@ defmodule Graphql.BlogTest do
     end
 
     test "update_comment/2 with invalid data returns error changeset" do
-      {:ok, comment} = comment_fixture() |> Blog.create_comment()
+      comment = comment_fixture()
       assert {:error, %Ecto.Changeset{}} = Blog.update_comment(comment, @invalid_attrs)
       assert comment == Blog.get_comment!(comment.id)
     end
 
     test "delete_comment/1 deletes the comment" do
-      {:ok, comment} = comment_fixture() |> Blog.create_comment()
+      comment = comment_fixture()
       assert {:ok, %Comment{}} = Blog.delete_comment(comment)
       assert_raise Ecto.NoResultsError, fn -> Blog.get_comment!(comment.id) end
     end
 
     test "change_comment/1 returns a comment changeset" do
-      {:ok, comment} = comment_fixture() |> Blog.create_comment()
+      comment = comment_fixture()
       assert %Ecto.Changeset{} = Blog.change_comment(comment)
     end
   end
