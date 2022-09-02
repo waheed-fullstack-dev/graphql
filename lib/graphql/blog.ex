@@ -58,6 +58,22 @@ defmodule Graphql.Blog do
   def get_post(id), do: Repo.get(Post, id)
 
   @doc """
+  Gets a single post.
+
+  Return `Ecto.NoResultsError` if the Post does not exist.
+
+  ## Examples
+
+      iex> get_post!(123)
+      %Post{}
+
+      iex> get_post!(456)
+      Ecto.NoResultsError
+
+  """
+  def get_post!(id), do: Repo.get!(Post, id)
+
+  @doc """
   Creates a post.
 
   ## Examples
@@ -165,7 +181,7 @@ defmodule Graphql.Blog do
 
   ## Examples
 
-      iex> get_comment!(123)
+      iex> get_comment(123)
       %Comment{}
 
       iex> get_comment(456)
@@ -173,6 +189,22 @@ defmodule Graphql.Blog do
 
   """
   def get_comment(id), do: Repo.get(Comment, id)
+
+  @doc """
+  Gets a single comment.
+
+  Return `Ecto.NoResultsError` if the Comment does not exist.
+
+  ## Examples
+
+      iex> get_comment!(123)
+      %Comment{}
+
+      iex> get_comment!(456)
+      Ecto.NoResultsError
+
+  """
+  def get_comment!(id), do: Repo.get!(Comment, id)
 
   @doc """
   Creates a comment.

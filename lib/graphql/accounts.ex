@@ -42,9 +42,24 @@ defmodule Graphql.Accounts do
 
       iex> get_user(456)
       nil
-
   """
   def get_user(id), do: Repo.get(User, id)
+
+  @doc """
+  Gets a single user.
+
+  Raises `Ecto.NoResultsError` if the User does not exist.
+
+  ## Examples
+
+      iex> get_user!(123)
+      %User{}
+
+      iex> get_user!(456)
+      Ecto.NoResultsError
+  """
+
+  def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
   Creates a user.
@@ -78,7 +93,7 @@ defmodule Graphql.Accounts do
   """
   def update_user(%User{} = user, attrs) do
     user
-    |> User.update_changeset(attrs)
+    |> User.changeset(attrs)
     |> Repo.update()
   end
 
