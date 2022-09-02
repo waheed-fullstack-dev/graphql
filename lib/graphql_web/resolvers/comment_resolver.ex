@@ -8,7 +8,7 @@ defmodule GraphqlWeb.Resolvers.CommentResolver do
   def create_comment(_, args, %{context: %{current_user: %User{id: user_id}}}) do
     args = Map.put(args.comment, :user_id, user_id)
 
-    case Blogs.create_comment(args) |> IO.inspect() do
+    case Blogs.create_comment(args) do
       {:ok, comment} ->
         {:ok, comment}
 

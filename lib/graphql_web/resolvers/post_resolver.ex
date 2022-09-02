@@ -7,7 +7,7 @@ defmodule GraphqlWeb.Resolvers.PostResolver do
   def create_post(_, args, %{context: %{current_user: %User{id: user_id}}}) do
     args = Map.put(args.post, :user_id, user_id)
 
-    case Blogs.create_post(args) |> IO.inspect() do
+    case Blogs.create_post(args) do
       {:ok, post} ->
         {:ok, post}
 
@@ -32,9 +32,9 @@ defmodule GraphqlWeb.Resolvers.PostResolver do
 
   def delete_post(_, args, %{context: %{current_user: %User{id: _user_id}}}) do
     with %Post{id: _id} = post <-
-           Blogs.get_post(args.post_id) |> IO.inspect(label: "Blogs.get_post"),
+           Blogs.get_post(args.post_id),
          {:ok, %Post{id: _id} = post} <-
-           Blogs.delete_post(post) |> IO.inspect(label: "Blogs.delete_post") do
+           Blogs.delete_post(post) do
       {:ok, post}
     else
       nil ->
