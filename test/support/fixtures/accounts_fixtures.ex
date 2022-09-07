@@ -9,7 +9,7 @@ defmodule Graphql.AccountsFixtures do
   Generate a user.
   """
   def user_fixture(attrs \\ %{}) do
-    password = Faker.Random.Elixir.random_bytes(8)
+    password = Faker.Random.Elixir.random_bytes(10)
 
     {:ok, %Accounts.User{} = user} =
       attrs

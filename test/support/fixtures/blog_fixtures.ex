@@ -1,7 +1,6 @@
 defmodule Graphql.BlogFixtures do
   alias Graphql.Blog.{Post, Comment}
   alias Graphql.Blog
-  import Graphql.AccountsFixtures
 
   @moduledoc """
   This module defines test helpers for creating
@@ -11,8 +10,7 @@ defmodule Graphql.BlogFixtures do
   @doc """
   Generate a post.
   """
-  def post_fixture(attrs \\ %{}) do
-    user = user_fixture()
+  def post_fixture(user_id, attrs \\ %{}) do
 
     {:ok, %Post{} = post} =
       attrs
@@ -20,7 +18,7 @@ defmodule Graphql.BlogFixtures do
         content: Faker.Lorem.sentence(20, "..."),
         published: true,
         title: Faker.Person.title(),
-        user_id: user.id
+        user_id: user_id
       })
       |> Blog.create_post()
 
@@ -30,19 +28,18 @@ defmodule Graphql.BlogFixtures do
   @doc """
   Generate a comment.
   """
-  def comment_fixture(attrs \\ %{}) do
-    user = user_fixture()
-    post = post_fixture()
-
+  def comment_fixture(post_id, user_id, attrs \\ %{}) do
     {:ok, %Comment{} = comment} =
       attrs
       |> Enum.into(%{
         content: Faker.Lorem.sentence(20, "..."),
-        user_id: user.id,
-        post_id: post.id
+        user_id: user_id,
+        post_id: post_id
       })
       |> Blog.create_comment()
 
     comment
   end
+
+
 end
