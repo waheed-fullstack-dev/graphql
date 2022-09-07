@@ -18,8 +18,7 @@ defmodule Graphql.AccountsFixtures do
         last_name: Faker.Person.last_name(),
         email: Faker.Internet.free_email(),
         password: password,
-        password_confirmation: password,
-        role: "user"
+        password_confirmation: password
       })
       |> Accounts.create_user()
 

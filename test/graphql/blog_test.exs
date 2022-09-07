@@ -1,4 +1,5 @@
 defmodule Graphql.BlogTest do
+  use ExUnit.Case, async: true
   use Graphql.DataCase
 
   alias Graphql.Blog
