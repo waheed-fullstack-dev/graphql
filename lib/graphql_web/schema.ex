@@ -1,4 +1,5 @@
 defmodule GraphqlWeb.Schema do
+  @moduledoc false
   use Absinthe.Schema
 
   # Import all schema types that are being used in query and mutation

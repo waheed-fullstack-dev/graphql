@@ -58,8 +58,10 @@ defmodule Graphql.MixProject do
       {:scrivener_ecto, "~> 2.7"},
 
       # For Testing Purpose
-      # {:ex_machina, "~> 2.7", only: :test},
-      {:faker, "~> 0.17.0", only: :test}
+      {:faker, "~> 0.17.0", only: :test},
+
+      # Credo
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 

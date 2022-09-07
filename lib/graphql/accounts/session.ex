@@ -1,4 +1,5 @@
 defmodule Graphql.Accounts.Session do
+  @moduledoc false
   alias Graphql.{Accounts, Guardian}
   alias Graphql.Accounts.User
 

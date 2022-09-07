@@ -50,7 +50,6 @@ defmodule Graphql.AccountsTest do
     end
 
     test "update_user/2 with valid data updates the user", %{user: user} do
-
       update_attrs = %{
         first_name: Faker.Person.first_name(),
         last_name: Faker.Person.last_name(),

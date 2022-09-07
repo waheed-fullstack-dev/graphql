@@ -1,4 +1,5 @@
 defmodule Graphql.Guardian do
+  @moduledoc false
   use Guardian, otp_app: :graphql
   alias Graphql.Accounts
 

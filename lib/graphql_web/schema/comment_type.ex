@@ -1,4 +1,12 @@
 defmodule GraphqlWeb.Schema.CommentType do
+  @moduledoc """
+
+    This is the Comment Schema module used for GraphQL. 
+    Here object type is defined. For single and multiple comments and 
+    input type for comments attributes.
+
+  """
+
   use Absinthe.Schema.Notation
   use Absinthe.Ecto, repo: Graphql.Repo
 

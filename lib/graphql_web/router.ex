@@ -1,4 +1,5 @@
 defmodule GraphqlWeb.Router do
+  @moduledoc false
   use GraphqlWeb, :router
 
   # added plug to check authorization header and add current login user

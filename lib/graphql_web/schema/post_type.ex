@@ -1,4 +1,12 @@
 defmodule GraphqlWeb.Schema.PostType do
+  @moduledoc """
+
+    This is the Post Schema module used for GraphQL. 
+    Here object type is defined. For single and multiple posts and 
+    input type for post attributes.
+
+  """
+
   use Absinthe.Schema.Notation
   use Absinthe.Ecto, repo: Graphql.Repo
 

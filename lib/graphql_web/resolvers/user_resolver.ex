@@ -1,4 +1,11 @@
 defmodule GraphqlWeb.Resolvers.UserResolver do
+  @moduledoc """
+
+    This is the User Resolver module. Here all user related 
+    mutations and queries are performed.
+
+  """
+
   alias Graphql.Accounts
   alias Graphql.Accounts.User
   alias GraphqlWeb.Resolvers.Utils

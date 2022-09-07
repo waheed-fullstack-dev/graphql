@@ -1,4 +1,10 @@
 defmodule GraphqlWeb.Resolvers.CommentResolver do
+  @moduledoc """
+
+    This is the Comment Resolver module. Here all comment related 
+    mutations and queries are performed
+
+  """
   alias Graphql.Blog, as: Blogs
   alias GraphqlWeb.Resolvers.Utils
   alias Graphql.Accounts.User

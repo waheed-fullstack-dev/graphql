@@ -4,4 +4,5 @@ defmodule Graphql.Repo do
     adapter: Ecto.Adapters.Postgres
 
   use Scrivener, page_size: 10
+  @moduledoc false
 end

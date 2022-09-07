@@ -7,10 +7,11 @@ defmodule Graphql.BlogTest do
   import Graphql.BlogFixtures
 
   setup do
-    {:ok, %{user: user}} = {:ok, %{user: user_fixture()}} 
+    {:ok, %{user: user}} = {:ok, %{user: user_fixture()}}
     {:ok, %{post: post}} = {:ok, %{post: post_fixture(user.id)}}
+
     [
-      user: user, 
+      user: user,
       post: post,
       comment: comment_fixture(post.id, user.id)
     ]
@@ -89,7 +90,6 @@ defmodule Graphql.BlogTest do
     end
 
     test "create_comment/1 with valid data creates a comment", %{post: post, user: user} do
-
       valid_attrs = %{
         content: Faker.Lorem.sentence(20, "..."),
         user_id: user.id,

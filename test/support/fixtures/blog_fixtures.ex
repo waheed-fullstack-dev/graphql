@@ -11,7 +11,6 @@ defmodule Graphql.BlogFixtures do
   Generate a post.
   """
   def post_fixture(user_id, attrs \\ %{}) do
-
     {:ok, %Post{} = post} =
       attrs
       |> Enum.into(%{
@@ -40,6 +39,4 @@ defmodule Graphql.BlogFixtures do
 
     comment
   end
-
-
 end

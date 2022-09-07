@@ -1,4 +1,11 @@
 defmodule GraphqlWeb.Resolvers.PostResolver do
+  @moduledoc """
+
+    This is the Post Resolver module. Here all post related 
+    mutations and queries are performed.
+
+  """
+
   alias Graphql.Blog, as: Blogs
   alias GraphqlWeb.Resolvers.Utils
   alias Graphql.Accounts.User

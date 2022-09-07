@@ -1,4 +1,10 @@
 defmodule GraphqlWeb.Schema.Middleware.Authorize do
+  @moduledoc """
+
+    This is the authorization middleware used for GraphQL routes.
+
+  """
+
   @behaviour Absinthe.Middleware
 
   def call(resolution, role) do

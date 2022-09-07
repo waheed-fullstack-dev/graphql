@@ -1,4 +1,11 @@
 defmodule GraphqlWeb.Schema.UserType do
+  @moduledoc """
+
+    This is the User Schema module used for GraphQL. 
+    Here object type is defined. For single and multiple users and 
+    input type for user attributes.
+
+  """
   use Absinthe.Schema.Notation
 
   object :user do

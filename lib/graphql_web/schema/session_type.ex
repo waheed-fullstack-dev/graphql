@@ -1,4 +1,10 @@
 defmodule GraphqlWeb.Schema.SessionType do
+  @moduledoc """
+
+    This is the Session Schema module used for GraphQL. 
+    Here object type is defined. 
+
+  """
   use Absinthe.Schema.Notation
 
   object :login do
